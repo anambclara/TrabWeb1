@@ -60,49 +60,33 @@
         </div>
     </header>
 	<main>
-		<div class="page">
-			<form method="post" class="formLogin" id="formLogin">
-				<h1>Cadastro</h1>
-				<label for="username">Username</label>
-				<input id="username" type="text" name="username" autofocus="true" placeholder="Digite seu username">
-				<?php 
-					if (!empty($err_username)) {
-						echo "<p id='error'>" .$err_username . "</p>";
-					}
-				?>
-				<label for="email">Email</label>
-				<input id="email" type="text" name="email" autofocus="true" placeholder="Digite seu Email">
-				<?php 
-					if (!empty($err_email)) {
-						echo "<p id='error'>" . $err_email . "</p>";
-					}
-				?>
-				<label for="c_email">Confirmar email</label>
-				<input id="c_email" type="text" name="c_email" autofocus="true" placeholder="Confirme seu Email">
-				<?php
-					if (!empty($err_c_email)) {
-						echo "<p id='error'>" . $err_c_email . "</p>";
-					}
-				?>
-				<label for="password">Senha</label>
-				<input id="password" type="password" name="password" autofocus="true" placeholder="Digite sua Senha">
-				<?php 
-					if (!empty($err_password)) {
-						echo "<p id='error'>" . $err_password . "</p>";
-					}
-				?>
-				<label for="c_password">Confirmar senha</label>
-				<input id="c_password" type="password" name="c_password" autofocus="true" placeholder="Confirme sua senha">
-				<?php
-					if (!empty($err_c_password)) {
-						echo "<p id='error'>" . $err_c_password . "</p>";
-					}
-				?>
-				
-				<input id="button" type="submit" value="Cadastrar" class="btn" id="enviar">
-				<a href="login.php">Clique para logar</a>
-			</form>
-		</div>
-	</main>
+    <div class="page container d-flex justify-content-center align-items-center">
+        <form method="post" class="formLogin w-100" id="formLogin" style="max-width: 400px;">
+            <h1 class="text-center mb-4">Cadastro</h1>
+            <div class="mb-3">
+                <label for="username" class="form-label">Usuário</label>
+                <input id="username" type="text" name="username" class="form-control" placeholder="Digite seu usuário" required>
+            </div>
+            <div class="mb-3">
+                <label for="email" class="form-label">Email</label>
+                <input id="email" type="email" name="email" class="form-control" placeholder="Digite seu email" required>
+            </div>
+            <div class="mb-3">
+                <label for="password" class="form-label">Senha</label>
+                <input id="password" type="password" name="password" class="form-control" placeholder="Digite sua senha" required>
+            </div>
+            <div class="mb-3">
+                <label for="c_password" class="form-label">Confirmar Senha</label>
+                <input id="c_password" type="password" name="c_password" class="form-control" placeholder="Confirme sua senha" required>
+            </div>
+            <div class="d-grid">
+                <input id="button" type="submit" value="Cadastrar" class="btn btn-primary">
+            </div>
+            <p class="text-center mt-3">
+                Já tem uma conta? <a href="login.php" class="text-decoration-none">Clique para logar</a>
+            </p>
+        </form>
+    </div>
+</main>
 </body>
 </html>
