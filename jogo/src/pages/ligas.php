@@ -5,7 +5,7 @@ session_start();
 include("../config/connection.php");
 
 $user_id = $_SESSION["user_id"];
-$sqlClanInfo = "SELECT c.clan_name, u.username FROM Clans c INNER JOIN Users u ON c.clan_id = u.clan_id WHERE u.user_id = $user_id";
+$sqlClanInfo = "SELECT c.clan_name, u.username FROM clans c INNER JOIN Users u ON c.clan_id = u.clan_id WHERE u.user_id = $user_id";
 $resultClanInfo = $con->query($sqlClanInfo);
 
 $sqlClanMembers = "SELECT u.username, COALESCE(SUM(h.points), 0) as total_points 

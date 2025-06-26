@@ -3,10 +3,13 @@
 }
 
 body {
+    background: linear-gradient(to bottom, #ff99cc, #cc99ff); /* Rosa e lilás */
+    display: flex;
     justify-content: center;
     align-items: center;
+    height: 100vh;
     margin: 0;
-    background-color: #1e2327;
+    font-family: Arial, sans-serif;
 }
 
 main {
@@ -14,8 +17,10 @@ main {
     justify-content: center;
     align-items: center;
     margin: 0;
-    color: white;
-    background-color: #1e2327;
+    background-color: #ffffff; /* Branco para contraste */
+    padding: 2rem;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
 .menu {
@@ -75,14 +80,40 @@ main {
     width: 314px
 }
 
+input[type="text"], input[type="password"], input[type="email"] {
+    border: 2px solid #ff99cc; /* Rosa */
+    border-radius: 5px;
+    padding: 0.5rem;
+    width: 100%;
+    margin-bottom: 1rem;
+}
+
+input[type="submit"] {
+    background-color: #ff66b2; /* Rosa */
+    color: white;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1rem;
+}
+
+input[type="submit"]:hover {
+    background-color: #cc33ff; /* Lilás */
+}
 
 .formLogin input:focus {
-    border: 1px solid #ffc107;
+    border: 1px solid #ff66b2;
 }
 
 .formLogin label {
     font-size: 14px;
     font-weight: 600;
+}
+
+label {
+    color: #cc33ff; /* Lilás */
+    font-weight: bold;
 }
 
 .formLogin a {
@@ -94,11 +125,11 @@ main {
 }
 
 .formLogin a:hover {
-    color: #ffc107;
+    color: #ff66b2;
 }
 
 .btn {
-    background-color: #ffc107;
+    background-color: #ff66b2;
     color: black;
     font-size: 14px;
     font-weight: 600;
@@ -111,12 +142,17 @@ main {
 
 .btn:hover {
     transform: scale(1.05);
-    background-color: #ebf82e;
+    background-color: #ff66b2;
 }
 
 a {
-    margin: 2px;
+    color: #ff66b2; /* Rosa */
     text-decoration: none;
+}
+
+a:hover {
+    color: #cc33ff; /* Lilás */
+    text-decoration: underline;
 }
 
 #error {

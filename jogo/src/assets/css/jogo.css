@@ -1,104 +1,110 @@
+/* Fundo com gradiente rosa e lilás */
 body {
-    justify-content: center;
-    align-items: center;
-    margin: 0;
-    background-color: #1e2327
-  }
-  
-  main {
     display: flex;
     justify-content: center;
     align-items: center;
     margin: 0;
-    background-color: #1e2327;
+    background: linear-gradient(to bottom, #ff99cc, #cc99ff); /* Rosa e lilás */
+    font-family: Arial, sans-serif;
+}
+
+/* Estilo do contêiner principal */
+main {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0;
+    background-color: rgba(255, 255, 255, 0.8); /* Fundo branco translúcido */
     height: 90vh;
-  }
-  
-  .menu {
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    padding: 2rem;
+}
+
+/* Menu superior */
+.menu {
     width: 100%;
-    background-color: black;
-  }
-  
-  .containerJogo {
+    background-color: rgba(0, 0, 0, 0.8); /* Preto translúcido */
+    color: white;
+    padding: 1rem 0;
+}
+
+/* Contêiner do jogo */
+.containerJogo {
     margin-top: 150px;
     text-align: center;
     display: none;
-    background-color: #41403b;
+    background-color: #ff99cc; /* Rosa */
     padding: 1rem;
-    border-radius: .5rem;
+    border-radius: 0.5rem;
     width: 700px;
     max-width: 90%;
     font-size: 25px;
     color: white;
     position: fixed;
-  }
-  
-  .quote-display {
-    display: block;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Texto da citação */
+.quote-display {
+    color: #cc33ff; /* Lilás */
+    font-size: 1.5rem;
     margin-bottom: 1rem;
-    margin-left: calc(1rem + 2px);
-    margin-right: calc(1rem + 2px);
-    color: #ffffff;
-    font-size: 2rem;
-  }
-  
-  .quote-input {
-    display: block;
-    background-color: transparent;
-    border: 2px solid #111114;
-    outline: none;
+}
+
+/* Entrada de texto */
+.quote-input {
     width: 100%;
-    height: 8rem;
-    margin: auto;
-    resize: none;
-    padding: .5rem 1rem;
-    font-size: 2rem;
-    border-radius: .5rem;
-  }
-  
-  span {
+    padding: 0.5rem;
+    font-size: 1.2rem;
+    border: 2px solid #cc33ff; /* Lilás */
+    border-radius: 5px;
+    outline: none;
+}
+
+span {
     margin: 1px;
     border-radius: 2px;
     font-size: 25px;
-  }
-  
-  .quote-input:focus {
+}
+
+.quote-input:focus {
     border-color: rgb(255, 247, 247);
-  }
-  
-  .correct {
+}
+
+.correct {
     color: green;
     background-color: rgba(144, 238, 144, 0.836);
-  }
-  
-  .incorrect {
+}
+
+.incorrect {
     color: red;
     background-color: rgba(255, 0, 0, 0.205);
     animation: shake 0.82s cubic-bezier(.36, .07, .19, .97) both;
-  }
-  
-  #texto {
+}
+
+#texto {
     margin-top: 80px;
     border-radius: 2px;
     font-size: 25px;
     color: white
-  }
-  
-  #divButton {
+}
+
+#divButton {
     text-align: center;
-  }
-  
-  #divResults {
+}
+
+#divResults {
     display: none;
     color: white;
     text-align: center;
-  }
-  
-  #content {
+}
+
+#content {
     text-align: center;
-  }
-  
-  #timer_structure {
+}
+
+#timer_structure {
     text-align: center;
     position: fixed;
     top: 50px;
@@ -108,33 +114,33 @@ body {
     color: #ffffff;
     font-weight: bold;
     z-index: 1000;
-  }
-  
-  @keyframes shake {
-  
+}
+
+@keyframes shake {
+
     10%,
     90% {
-      transform: translate3d(-1px, 0, 0);
+        transform: translate3d(-1px, 0, 0);
     }
-  
+
     20%,
     80% {
-      transform: translate3d(2px, 0, 0);
+        transform: translate3d(2px, 0, 0);
     }
-  
+
     30%,
     50%,
     70% {
-      transform: translate3d(-4px, 0, 0);
+        transform: translate3d(-4px, 0, 0);
     }
-  
+
     40%,
     60% {
-      transform: translate3d(4px, 0, 0);
+        transform: translate3d(4px, 0, 0);
     }
-  }
-  
-  .btn {
+}
+
+.btn {
     background-color: #ffc107;
     color: black;
     font-size: 14px;
@@ -143,9 +149,42 @@ body {
     transition: all linear 160ms;
     cursor: pointer;
     margin: 0 !important;
-  }
-  
-  .btn:hover {
+}
+
+.btn:hover {
     transform: scale(1.05);
     background-color: #ebf82e;
-  }
+}
+
+/* Botão de jogar */
+button {
+    background-color: #ff66b2; /* Rosa */
+    border: none;
+    color: white;
+    padding: 0.5rem 1rem;
+    border-radius: 5px;
+    font-size: 1rem;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #cc33ff; /* Lilás */
+}
+
+/* Timer */
+.timer {
+    font-size: 2rem;
+    color: #cc33ff; /* Lilás */
+    margin-bottom: 1rem;
+}
+
+/* Resultados */
+.result {
+    background-color: #ffffff; /* Branco */
+    color: #ff66b2; /* Rosa */
+    padding: 1rem;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    margin-top: 1rem;
+    text-align: center;
+}

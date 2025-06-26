@@ -153,61 +153,30 @@
 
 
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-	<meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../assets/css/login.css"> <!-- Seu CSS personalizado -->
     <title>Login</title>
-	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="..\assets\css\cadastro.css">
 </head>
 <body>
-	<header class="p-3 menu">
-        <div class="container">
-            <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
-                <a href="/" class="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none">
-                    <svg class="bi me-2" width="40" height="32" role="img" aria-label="Bootstrap">
-                        <use xlink:href="#bootstrap" />
-                    </svg>
-                </a>
-
-                <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
-                    <li><a href="" class="nav-link px-2 text-white">Home</a></li>
-                </ul>
-                <div class="text-end">
-                    <a href="login.php"><button type="button"
-                            class="btn btn-warning">Login</button></a>
-                </div>
+    <div class="container">
+        <h1>Bem-vindo!</h1>
+        <form action="login.php" method="POST">
+            <div class="mb-3">
+                <label for="username" class="form-label">Usuário</label>
+                <input type="text" class="form-control" id="username" name="username" required>
             </div>
-        </div>
-    </header>
-	<main>
-		<div class="page">
-			<form method="post" id="loginForm" class="formLogin">
-				<h1 id="top">Login</h1>
-				<p>Digite os seus dados de acesso nos campos abaixo.</p>
-				<label for="username">Login</label>
-				<input id="text" type="text" name="username" autofocus="true">
-				<?php 
-					if (!empty($err_username)) {
-						echo "<p id='error'>" .$err_username . "</p>";
-					}
-				?>
-
-				<label for="password">Senha</label>
-				<input id="text" type="password" name="password" autofocus="true">
-				<?php 
-					if (!empty($err_password)) {
-						echo "<p id='error'>" . $err_password . "</p>";
-					}
-				?>
-
-				<input id="button" type="submit" value="Logar" class="btn">
-
-				<a href="cadastro.php">Clique para se Cadastrar</a>
-			</form>
-		</div>
-	</main>
+            <div class="mb-3">
+                <label for="password" class="form-label">Senha</label>
+                <input type="password" class="form-control" id="password" name="password" required>
+            </div>
+            <button type="submit" class="btn btn-primary w-100">Entrar</button>
+        </form>
+        <p class="mt-3">Não tem uma conta? <a href="cadastro.php" class="btn btn-link">Cadastre-se</a></p>
+    </div>
 </body>
 </html>

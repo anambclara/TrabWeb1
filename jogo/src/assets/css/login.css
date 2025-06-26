@@ -1,8 +1,11 @@
 body {
+    background: linear-gradient(to bottom, #ff99cc, #cc99ff); /* Rosa e lilás */
+    display: flex;
     justify-content: center;
     align-items: center;
+    height: 100vh;
     margin: 0;
-    background-color: #1e2327
+    font-family: Arial, sans-serif;
 }
 
 main {
@@ -92,7 +95,7 @@ main {
 }
 
 .btn {
-    background-color: #ffc107;
+    background-color: #ff66b2;
     color: black;
     font-size: 14px;
     font-weight: 600;
@@ -105,7 +108,7 @@ main {
 
 .btn:hover {
     transform: scale(1.05);
-    background-color: #ebf82e;
+    background-color: #cc33ff;
 }
 
 a {
@@ -120,4 +123,33 @@ a {
 #error {
     margin: 0;
     color: red;
+}
+
+.container {
+    background-color: white;
+    border-radius: 10px;
+    padding: 2rem;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    text-align: center;
+    max-width: 400px;
+    width: 100%;
+}
+
+h1 {
+    color: #ff66b2; /* Lilás */
+    margin-bottom: 1rem;
+}
+
+button {
+    background-color: #ff66b2; 
+    border: none;
+    color: white;
+    padding: 0.5rem 1rem;
+    border-radius: 5px;
+    font-size: 1rem;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #cc33ff; 
 }
