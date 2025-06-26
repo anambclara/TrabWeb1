@@ -1,14 +1,169 @@
+<?php 
+	$servername = "localhost";
+	$username = "root";
+	$password = "";
+	$conn = new mysqli($servername, $username, $password);
+	
+	if ($conn->connect_error) {
+		die("Conexão falhou: " . $conn->connect_error);
+	}
+	
+	$databaseName = "trabalhoweb";
+	$query = "SHOW DATABASES LIKE '$databaseName'";
+	$result = $conn->query($query);
+	
+	if ($result) {
+		if ($result->num_rows > 0) {
+			
+			$conn->select_db($databaseName);
+			//---------------------------------------------------
+			$tableQueryclans = "SHOW TABLES LIKE 'clans'";
+			$tableResult = $conn->query($tableQueryclans);
+			if ($tableResult->num_rows == 0) {
+				$createTableQueryclans = "
+					CREATE TABLE clans (
+						clan_id INT NOT NULL AUTO_INCREMENT,
+						clan_name VARCHAR(100) NOT NULL,
+						clan_password VARCHAR(100),
+						PRIMARY KEY (clan_id)
+					);
+				";
+				$conn->query($createTableQueryclans);
+			}
+			//-------------------------------------------------
+			$tableQueryusers = "SHOW TABLES LIKE 'users'";
+			$tableResult = $conn->query($tableQueryusers);
+			if ($tableResult->num_rows == 0) {
+				$createTableQueryusers = "
+					CREATE TABLE users(
+						user_id INT NOT NULL AUTO_INCREMENT,
+						clan_id INT,
+						username VARCHAR(100) NOT NULL,
+						email VARCHAR(200) NOT NULL,
+						password VARCHAR(200) NOT NULL,
+						CONSTRAINT PKUSER PRIMARY KEY (user_id),
+						CONSTRAINT FKUSERCLAN FOREIGN KEY (clan_id) REFERENCES clans(clan_id)
+					);
+				";
+				$conn->query($createTableQueryusers);
+			} 
+			//-----------------------------------------------
+			$tableQueryhistoric = "SHOW TABLES LIKE 'historic'";
+			$tableResult = $conn->query($tableQueryhistoric);
+			if ($tableResult->num_rows == 0) {
+				$createTableQueryhistoric = "
+					CREATE TABLE historic (
+						match_id SERIAL,
+						user_id INT NOT NULL,
+						points INT NOT NULL,
+						date_match TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+						CONSTRAINT PKHISTORIC PRIMARY KEY(match_id),
+						CONSTRAINT FKHISTORICUSER FOREIGN KEY (user_id) REFERENCES users(user_id)
+					);
+				";
+				$conn->query($createTableQueryhistoric) ;
+			} 
+			//-----------------------------------------------
+		} else {
+			$createDatabaseQuery = "CREATE DATABASE $databaseName";
+			if ($conn->query($createDatabaseQuery) === TRUE) {
+				
+				$conn->select_db($databaseName);
+				//-------------------------------------
+				$createTableQueryclans = "
+					CREATE TABLE clans (
+						clan_id INT NOT NULL AUTO_INCREMENT,
+						clan_name VARCHAR(100) NOT NULL,
+						clan_password VARCHAR(100),
+						PRIMARY KEY (clan_id)
+					);
+				";
+				$conn->query($createTableQueryclans);
+				//-------------------------------------------------
+				$createTableQueryusers = "
+					CREATE TABLE users(
+						user_id INT NOT NULL AUTO_INCREMENT,
+						clan_id INT,
+						username VARCHAR(100) NOT NULL,
+						email VARCHAR(200) NOT NULL,
+						password VARCHAR(200) NOT NULL,
+						CONSTRAINT PKUSER PRIMARY KEY (user_id),
+						CONSTRAINT FKUSERCLAN FOREIGN KEY (clan_id) REFERENCES clans(clan_id)
+					);
+				";
+				$conn->query($createTableQueryusers);
+				//---------------------------------------------
+				$createTableQueryhistoric = "
+					CREATE TABLE historic (
+						match_id SERIAL,
+						user_id INT NOT NULL,
+						points INT NOT NULL,
+						date_match TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+						CONSTRAINT PKHISTORIC PRIMARY KEY(match_id),
+						CONSTRAINT FKHISTORICUSER FOREIGN KEY (user_id) REFERENCES users(user_id)
+					);
+				";
+				$conn->query($createTableQueryhistoric);
+				//--------------------------------------------
+			} 
+		}
+	}
+	
+	$conn->close();
+	session_start();
+
+	include("../config/connection.php");
+	include("../config/functions.php");
+
+	
+	if($_SERVER['REQUEST_METHOD'] == "POST")
+	{
+
+		$username = $_POST['username'];
+		$password = $_POST['password'];
+
+		if(!empty($username) && !empty($password))
+		{
+
+			$query = "select * from users where username = '$username' limit 1";
+			$result = mysqli_query($con, $query);
+
+			if($result)
+			{
+				if($result && mysqli_num_rows($result) > 0)
+				{
+
+					$user_data = mysqli_fetch_assoc($result);
+					
+					if($user_data['password'] === $password)
+					{
+
+						$_SESSION['user_id'] = $user_data['user_id'];
+						header("Location: index.php");
+						die;
+					}
+				}
+			}
+			
+			
+		}
+	}
+
+?>
+
+
 <!DOCTYPE html>
 <html>
 <head>
-    <meta charset="UTF-8">
+	<meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="..\assets\css\cadastro.css">
 </head>
 <body>
-    <header class="p-3 menu">
+	<header class="p-3 menu">
         <div class="container">
             <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
                 <a href="/" class="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none">
@@ -27,43 +182,32 @@
             </div>
         </div>
     </header>
-    <main>
-        <div class="d-flex justify-content-center align-items-center" style="height: 100vh;">
-            <div class="card p-4" style="width: 300px;">
-                <form method="post" id="loginForm" class="formLogin">
-                    <h1 id="top" class="mb-4 text-center">Login</h1>
-                    <p class="mb-3 text-center">Digite os seus dados de acesso nos campos abaixo.</p>
+	<main>
+		<div class="page">
+			<form method="post" id="loginForm" class="formLogin">
+				<h1 id="top">Login</h1>
+				<p>Digite os seus dados de acesso nos campos abaixo.</p>
+				<label for="username">Login</label>
+				<input id="text" type="text" name="username" autofocus="true">
+				<?php 
+					if (!empty($err_username)) {
+						echo "<p id='error'>" .$err_username . "</p>";
+					}
+				?>
 
-                    <div class="form-group mb-3">
-                        <label for="username" class="form-label">Login</label>
-                        <input id="username" type="text" name="username" class="form-control" autofocus="true">
-                        <?php 
-                            if (!empty($err_username)) {
-                                echo "<p class='text-danger'>" . $err_username . "</p>";
-                            }
-                        ?>
-                    </div>
+				<label for="password">Senha</label>
+				<input id="text" type="password" name="password" autofocus="true">
+				<?php 
+					if (!empty($err_password)) {
+						echo "<p id='error'>" . $err_password . "</p>";
+					}
+				?>
 
-                    <div class="form-group mb-3">
-                        <label for="password" class="form-label">Senha</label>
-                        <input id="password" type="password" name="password" class="form-control">
-                        <?php 
-                            if (!empty($err_password)) {
-                                echo "<p class='text-danger'>" . $err_password . "</p>";
-                            }
-                        ?>
-                    </div>
+				<input id="button" type="submit" value="Logar" class="btn">
 
-                    <div class="form-group mb-3">
-                        <input id="button" type="submit" value="Logar" class="btn btn-primary w-100">
-                    </div>
-
-                    <div class="text-center">
-                        <a href="cadastro.php" class="btn btn-link">Clique para se Cadastrar</a>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </main>
+				<a href="cadastro.php">Clique para se Cadastrar</a>
+			</form>
+		</div>
+	</main>
 </body>
 </html>

@@ -1,3 +1,34 @@
+<?php 
+	session_start();
+
+	include("../config/auth.php");
+	include("../config/connection.php");
+	include("../config/functions.php");
+
+	if($_SERVER['REQUEST_METHOD'] == "POST")
+	{
+		$username = $_POST['username'];
+		$email = $_POST['email'];
+		$c_email = $_POST['c_email'];
+		$password = $_POST['password'];
+		$c_password = $_POST['c_password'];
+
+		if(!$err)
+		{
+	
+			$query = "insert into users (username,email,password) values ('$username','$email','$password')";
+
+			mysqli_query($con, $query);
+
+			header("Location: login.php");
+			die;
+		}else
+		{
+			
+		}
+	}
+?>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -6,7 +37,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cadastro</title>
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="..\public\signup.css">
+    <link rel="stylesheet" href="..\assets\css\cadastro.css">
 </head>
 <body>
 	<header class="p-3 menu">
@@ -29,70 +60,48 @@
         </div>
     </header>
 	<main>
-		<div class="d-flex justify-content-center align-items-center" style="height: 100vh;">
-			<div class="card p-4" style="width: 300px;">
-				<form method="post" class="formLogin" id="formLogin">
-					<h1 class="mb-4 text-center">Cadastro</h1>
-
-					<div class="form-group mb-3">
-						<label for="username" class="form-label">Username</label>
-						<input id="username" type="text" name="username" class="form-control" placeholder="Digite seu username" autofocus="true">
-						<?php 
-							if (!empty($err_username)) {
-								echo "<p class='text-danger'>" . $err_username . "</p>";
-							}
-						?>
-					</div>
-
-					<div class="form-group mb-3">
-						<label for="email" class="form-label">Email</label>
-						<input id="email" type="text" name="email" class="form-control" placeholder="Digite seu Email" autofocus="true">
-						<?php 
-							if (!empty($err_email)) {
-								echo "<p class='text-danger'>" . $err_email . "</p>";
-							}
-						?>
-					</div>
-
-					<div class="form-group mb-3">
-						<label for="c_email" class="form-label">Confirmar email</label>
-						<input id="c_email" type="text" name="c_email" class="form-control" placeholder="Confirme seu Email" autofocus="true">
-						<?php
-							if (!empty($err_c_email)) {
-								echo "<p class='text-danger'>" . $err_c_email . "</p>";
-							}
-						?>
-					</div>
-
-					<div class="form-group mb-3">
-						<label for="password" class="form-label">Senha</label>
-						<input id="password" type="password" name="password" class="form-control" placeholder="Digite sua Senha" autofocus="true">
-						<?php 
-							if (!empty($err_password)) {
-								echo "<p class='text-danger'>" . $err_password . "</p>";
-							}
-						?>
-					</div>
-
-					<div class="form-group mb-3">
-						<label for="c_password" class="form-label">Confirmar senha</label>
-						<input id="c_password" type="password" name="c_password" class="form-control" placeholder="Confirme sua senha" autofocus="true">
-						<?php
-							if (!empty($err_c_password)) {
-								echo "<p class='text-danger'>" . $err_c_password . "</p>";
-							}
-						?>
-					</div>
-
-					<div class="form-group mb-3">
-						<input id="button" type="submit" value="Cadastrar" class="btn btn-primary w-100">
-					</div>
-
-					<div class="text-center">
-						<a href="login.php" class="btn btn-link">Clique para logar</a>
-					</div>
-				</form>
-			</div>
+		<div class="page">
+			<form method="post" class="formLogin" id="formLogin">
+				<h1>Cadastro</h1>
+				<label for="username">Username</label>
+				<input id="username" type="text" name="username" autofocus="true" placeholder="Digite seu username">
+				<?php 
+					if (!empty($err_username)) {
+						echo "<p id='error'>" .$err_username . "</p>";
+					}
+				?>
+				<label for="email">Email</label>
+				<input id="email" type="text" name="email" autofocus="true" placeholder="Digite seu Email">
+				<?php 
+					if (!empty($err_email)) {
+						echo "<p id='error'>" . $err_email . "</p>";
+					}
+				?>
+				<label for="c_email">Confirmar email</label>
+				<input id="c_email" type="text" name="c_email" autofocus="true" placeholder="Confirme seu Email">
+				<?php
+					if (!empty($err_c_email)) {
+						echo "<p id='error'>" . $err_c_email . "</p>";
+					}
+				?>
+				<label for="password">Senha</label>
+				<input id="password" type="password" name="password" autofocus="true" placeholder="Digite sua Senha">
+				<?php 
+					if (!empty($err_password)) {
+						echo "<p id='error'>" . $err_password . "</p>";
+					}
+				?>
+				<label for="c_password">Confirmar senha</label>
+				<input id="c_password" type="password" name="c_password" autofocus="true" placeholder="Confirme sua senha">
+				<?php
+					if (!empty($err_c_password)) {
+						echo "<p id='error'>" . $err_c_password . "</p>";
+					}
+				?>
+				
+				<input id="button" type="submit" value="Cadastrar" class="btn" id="enviar">
+				<a href="login.php">Clique para logar</a>
+			</form>
 		</div>
 	</main>
 </body>
