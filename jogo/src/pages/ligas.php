@@ -8,28 +8,28 @@ session_start();
 include("../config/connection.php");
 
 $user_id = $_SESSION["user_id"];
-$sqlClanInfo = "SELECT c.clan_name, u.username FROM clans c INNER JOIN Users u ON c.clan_id = u.clan_id WHERE u.user_id = $user_id";
+$sqlClanInfo = "SELECT c.clan_name, u.username FROM clans c INNER JOIN users u ON c.clan_id = u.clan_id WHERE u.user_id = $user_id";
 $resultClanInfo = $con->query($sqlClanInfo);
 
 $sqlClanMembers = "SELECT u.username, COALESCE(SUM(h.points), 0) as total_points 
-                   FROM Users u 
+                   FROM users u 
                    LEFT JOIN historic h ON u.user_id = h.user_id 
-                   WHERE u.clan_id = (SELECT clan_id FROM Users WHERE user_id = $user_id)
+                   WHERE u.clan_id = (SELECT clan_id FROM users WHERE user_id = $user_id)
                    GROUP BY u.user_id
                    ORDER BY total_points DESC";
 $resultClanMembers = $con->query($sqlClanMembers);
 
 $sqlTotalClanPoints = "SELECT COALESCE(SUM(h.points), 0) as total_clan_points 
-                       FROM Users u 
+                       FROM users u 
                        LEFT JOIN historic h ON u.user_id = h.user_id 
-                       WHERE u.clan_id = (SELECT clan_id FROM Users WHERE user_id = $user_id)";
+                       WHERE u.clan_id = (SELECT clan_id FROM users WHERE user_id = $user_id)";
 $resultTotalClanPoints = $con->query($sqlTotalClanPoints);
 $totalClanPoints = $resultTotalClanPoints->fetch_assoc()['total_clan_points'];
 
 
 $sqlClanWeeklyPoints = "SELECT COALESCE(SUM(points), 0) as weekly_points 
                         FROM historic 
-                        WHERE user_id IN (SELECT user_id FROM Users WHERE clan_id = (SELECT clan_id FROM Users WHERE user_id = $user_id))
+                        WHERE user_id IN (SELECT user_id FROM users WHERE clan_id = (SELECT clan_id FROM users WHERE user_id = $user_id))
                         AND date_match >= NOW() - INTERVAL 7 DAY";
 $resultClanWeeklyPoints = $con->query($sqlClanWeeklyPoints);
 $weeklyPoints = $resultClanWeeklyPoints->fetch_assoc()['weekly_points'];

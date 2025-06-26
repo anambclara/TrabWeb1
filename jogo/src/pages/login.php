@@ -87,9 +87,9 @@
 						username VARCHAR(100) NOT NULL,
 						email VARCHAR(200) NOT NULL,
 						password VARCHAR(200) NOT NULL,
-						CONSTRAINT PKUSER PRIMARY KEY (user_id),
-						CONSTRAINT FKUSERCLAN FOREIGN KEY (clan_id) REFERENCES clans(clan_id)
-					);
+						PRIMARY KEY (user_id),
+                        FOREIGN KEY (clan_id) REFERENCES clans(clan_id)
+                    );
 				";
 				$conn->query($createTableQueryusers);
 				//---------------------------------------------

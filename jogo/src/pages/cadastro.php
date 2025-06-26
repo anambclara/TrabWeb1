@@ -32,15 +32,16 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<meta charset="UTF-8">
+    <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cadastro</title>
-	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="../assets/css/cadastro.css">
 </head>
 <body>
-	<header class="p-3 menu">
+    
+    <header class="p-3 menu bg-dark text-white fixed-top">
         <div class="container">
             <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
                 <a href="/" class="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none">
@@ -52,41 +53,47 @@
                 <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
                     <li><a href="" class="nav-link px-2 text-white">Home</a></li>
                 </ul>
-                <div class="text-end">
-                    <a href="login.php"><button type="button"
-                            class="btn btn-warning">Login</button></a>
-                </div>
+                
             </div>
         </div>
     </header>
-	<main>
-    <div class="page container d-flex justify-content-center align-items-center">
-        <form method="post" class="formLogin w-100" id="formLogin" style="max-width: 400px;">
-            <h1 class="text-center mb-4">Cadastro</h1>
-            <div class="mb-3">
-                <label for="username" class="form-label">Usuário</label>
-                <input id="username" type="text" name="username" class="form-control" placeholder="Digite seu usuário" required>
+
+    
+    
+        <div class="card shadow-lg" style="max-width: 500px; width: 100%;">
+            <div class="card-body">
+                <h1 class="text-center mb-4 text-danger">Cadastro</h1>
+                <form method="post" class="w-100">
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <label for="username" class="form-label">Usuário</label>
+                            <input id="username" type="text" name="username" class="form-control" placeholder="Digite seu usuário" required>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="email" class="form-label">Email</label>
+                            <input id="email" type="email" name="email" class="form-control" placeholder="Digite seu email" required>
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <label for="password" class="form-label">Senha</label>
+                            <input id="password" type="password" name="password" class="form-control" placeholder="Digite sua senha" required>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="c_password" class="form-label">Confirmar Senha</label>
+                            <input id="c_password" type="password" name="c_password" class="form-control" placeholder="Confirme sua senha" required>
+                        </div>
+                    </div>
+                    <div class="d-grid">
+                        <input id="button" type="submit" value="Cadastrar" class="btn btn-primary">
+                    </div>
+                </form>
+                <p class="text-center mt-3">
+                    Já tem cadastro? 
+                    <a href="login.php" class="btn btn-warning">Login</a>
+                </p>
             </div>
-            <div class="mb-3">
-                <label for="email" class="form-label">Email</label>
-                <input id="email" type="email" name="email" class="form-control" placeholder="Digite seu email" required>
-            </div>
-            <div class="mb-3">
-                <label for="password" class="form-label">Senha</label>
-                <input id="password" type="password" name="password" class="form-control" placeholder="Digite sua senha" required>
-            </div>
-            <div class="mb-3">
-                <label for="c_password" class="form-label">Confirmar Senha</label>
-                <input id="c_password" type="password" name="c_password" class="form-control" placeholder="Confirme sua senha" required>
-            </div>
-            <div class="d-grid">
-                <input id="button" type="submit" value="Cadastrar" class="btn btn-primary">
-            </div>
-            <p class="text-center mt-3">
-                Já tem uma conta? <a href="login.php" class="text-decoration-none">Clique para logar</a>
-            </p>
-        </form>
-    </div>
-</main>
+        </div>
+    
 </body>
 </html>

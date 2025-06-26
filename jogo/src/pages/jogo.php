@@ -47,33 +47,34 @@ $con->close();
             </div>
         </div>
   </header>
-  <main>
-    <div id="content">
-      <div class="button" id="divButton">
-        <button type="button" class="btn btn-warning btn-lg" style="font-size: 50px;" id="button">JOGAR</button>
-        <P id="texto">Faça seus dedos voarem pelo teclado com o jogo de digitação e em 60 segundos descubra quem é o
-          mais
-          rapido </P>
-      </div>
-    </div>
-    <div id="timer_structure">
-      <div class="timer" id="timer"></div>
-    </div>
-    <div class="containerJogo">
-      <div class="quote-display" id="quoteDisplay"></div>
-      <textarea id="quoteInput" class="quote-input" autofocus></textarea>
-    </div>
-    <div class="result" id="divResults">
-      <div class="titleResult">
-        <div class="pointsResult" id="pointsResult">
-          <h3>Pontos da partida:</h3>
-          <h4 id="matchResult"></h4>
-          <h3>Recorde</h3>
-          <h4 id="highScore"><?php echo $highestScore;?></h4>
-            <button id="ButtonRestart" type="button" class="btn btn-warning btn-lg" style="font-size: 50px;"> Jogar
-              novamente</button><br><br>
+  <main class="d-flex justify-content-center align-items-center vh-100">
+    <div class="card shadow-lg" style="max-width: 700px; width: 100%; border-radius: 10px;">
+        <div class="card-body text-center">
+            <div id="content">
+                <div class="mb-4">
+                    <button type="button" class="btn btn-warning btn-lg" id="button">JOGAR</button>
+                </div>
+                <p id="texto" class="mb-4">Faça seus dedos voarem pelo teclado com o jogo de digitação e em 60 segundos descubra quem é o mais rápido</p>
+            </div>
+            <div id="timer_structure" class="mb-4">
+                <div class="timer" id="timer"></div>
+            </div>
+            <div class="containerJogo mb-4">
+                <div class="quote-display" id="quoteDisplay"></div>
+                <textarea id="quoteInput" class="quote-input form-control" rows="3" autofocus></textarea>
+            </div>
+            <div class="result" id="divResults">
+                <div class="titleResult">
+                    <div class="pointsResult" id="pointsResult">
+                        <h3>Pontos da partida:</h3>
+                        <h4 id="matchResult"></h4>
+                        <h3>Recorde</h3>
+                        <h4 id="highScore"><?php echo $highestScore; ?></h4>
+                        <button id="ButtonRestart" type="button" class="btn btn-warning btn-lg mt-3">Jogar novamente</button>
+                    </div>
+                </div>
+            </div>
         </div>
-      </div>
     </div>
   </main>
   <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>

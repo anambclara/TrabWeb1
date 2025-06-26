@@ -1,70 +1,9 @@
 body {
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    margin: 0;
-    background: linear-gradient(to right, #ee7752, #e73c7e, #23a6d5, #23d5ab);
-    background-size: 400% 400%;
-    animation: gradientAnimation 15s ease infinite;
+    background: linear-gradient(to bottom, #ff99cc, #cc99ff);
+    font-family: Arial, sans-serif;
 }
-
-@keyframes gradientAnimation {
-    0% { background-position: 0% 50%; }
-    50% { background-position: 100% 50%; }
-    100% { background-position: 0% 50%; }
-}
-
-main {
-    flex-grow: 1;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-    padding: 20px;
-    box-sizing: border-box;
-}
-
-.formLogin {
-    background-color: #333;
-    padding: 30px;
-    border-radius: 8px;
-    box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
-    color: white;
-}
-
-.formLogin h1 {
-    color: white;
-}
-
-.formLogin label {
-    color: #ccc;
-}
-
-.formLogin .form-control {
-    background-color: #444;
-    border: 1px solid #555;
-    color: white;
-}
-
-.formLogin .form-control::placeholder {
-    color: #bbb;
-}
-
-.formLogin .btn-primary {
-    background-color: #ff69b4;
-    border-color: #ff69b4;
-    color: white;
-}
-
-.formLogin .btn-primary:hover {
-    background-color: #e05e9e;
-    border-color: #e05e9e;
-}
-
-.formLogin a {
-    color: #ff69b4;
-}
-
-.formLogin a:hover {
-    color: #e05e9e;
+.card {
+    border: 0 !important;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2) !important;
+    background-clip: padding-box !important;
 }
