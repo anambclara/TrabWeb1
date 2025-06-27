@@ -35,7 +35,7 @@ $con->close();
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="../assets/css/cadastro.css">
+    <link rel="stylesheet" href="../assets/css/hist.css">
     <title>Histórico</title>
 </head>
 
@@ -53,13 +53,13 @@ $con->close();
                     <li><a href="index.php" class="nav-link px-2 text-white">Home</a></li>
                     <li><a href="hist.php" class="nav-link px-2 text-white">Histórico</a></li>
                     <li><a href="ligas.php" class="nav-link px-2 text-white">Minha Liga</a></li>
-                    <li><a href="ger_ligas.php" class="nav-link px-2 text-white">Criar Ligas</a></li>
+                    <li><a href="ger_ligas.php" class="nav-link px-2 text-white">Criar/Entrar Ligas</a></li>
                 </ul>
             </div>
         </div>
     </header>
 
-    
+    <main class="d-flex justify-content-center align-items-center vh-100">
         <div class="card shadow-lg" style="max-width: 700px; width: 100%;">
             <div class="card-body">
                 <h1 class="text-center mb-4 text-danger">Histórico de Partidas</h1>
@@ -71,21 +71,11 @@ $con->close();
                             <th>Pontos</th>
                         </tr>
                     </thead>
-                    <tbody>
-                        <!-- Exemplo de dados -->
-                        <tr>
-                            <td>2023-10-01</td>
-                            <td>150</td>
-                        </tr>
-                        <tr>
-                            <td>2023-10-02</td>
-                            <td>200</td>
-                        </tr>
-                    </tbody>
+                 
                 </table>
             </div>
         </div>
-    
+    </main>
 </body>
 
 </html>
