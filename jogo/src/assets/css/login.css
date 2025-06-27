@@ -1,5 +1,5 @@
 body {
-    background: linear-gradient(to bottom, #ff99cc, #cc99ff); /* Rosa e lilás */
+    background: linear-gradient(to bottom, #ff99cc, #cc99ff) !important; /* Rosa e lilás */
     display: flex;
     justify-content: center;
     align-items: center;
@@ -13,7 +13,6 @@ main {
     justify-content: center;
     align-items: center;
     margin: 0;
-    background-color: #1e2327
 }
 
 .menu {

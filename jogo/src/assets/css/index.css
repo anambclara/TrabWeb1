@@ -2,7 +2,9 @@ body {
     justify-content: center;
     align-items: center;
     margin: 0;
-    background-color: #1e2327
+    min-height: 100vh;
+    background: linear-gradient(to bottom, #ff99cc, #cc99ff) !important;
+    font-family: Arial, sans-serif;
 }
 
 main {
@@ -10,7 +12,6 @@ main {
     justify-content: center;
     align-items: center;
     margin: 0;
-    background-color: #1e2327
 }
 
 .menu {
@@ -29,19 +30,48 @@ main {
     color: aliceblue;
 }
 
-.btn {
-    background-color: #ffc107;
-    color: black;
+#divButtonStart .btn {
+    background-color: white !important;
+    color: #333 !important;
     font-size: 14px;
     font-weight: 600;
-    border: none !important;
+    border: 2px solid #ddd !important;
     transition: all linear 160ms;
     cursor: pointer;
     margin: 0 !important;
-
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
 }
 
-.btn:hover {
+#divButtonStart .btn:hover {
     transform: scale(1.05);
-    background-color: #ebf82e;
+    background-color: #ff66b2 !important;
+    color: white !important;
+    border: 2px solid #ff66b2 !important;
+    box-shadow: 0 6px 12px rgba(255, 102, 178, 0.3);
 }
+
+#buttonStart {
+    background-color: white !important;
+    color: #333 !important;
+    border: 2px solid #ddd !important;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1) !important;
+    transition: all 0.3s ease !important;
+    font-weight: bold !important;
+    font-size: 50px !important;
+}
+        
+#buttonStart:hover {
+    background-color: #ff66b2 !important;
+    color: white !important;
+    border: 2px solid #ff66b2 !important;
+    transform: scale(1.05) !important;
+    box-shadow: 0 6px 12px rgba(255, 102, 178, 0.3) !important;
+}
+
+#buttonStart:active {
+    transform: scale(0.98) !important;
+}
+        
+        #buttonStart:active {
+            transform: scale(0.98);
+        }

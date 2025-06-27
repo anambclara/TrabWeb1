@@ -1,6 +1,8 @@
 body {
-    background: linear-gradient(to bottom, #ff99cc, #cc99ff);
+    min-height: 100vh;
+    background: linear-gradient(to bottom, #ff99cc, #cc99ff) !important;
     font-family: Arial, sans-serif;
+    margin: 0;
 }
 .card {
     border: 0 !important;

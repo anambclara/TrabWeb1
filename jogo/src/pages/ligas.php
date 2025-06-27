@@ -1,3 +1,59 @@
+<?php
+session_start();
+include("../config/connection.php");
+include("../config/functions.php");
+
+$user_data = check_login($con);
+$user_id = $user_data['user_id'];
+
+$sqlClanInfo = "SELECT c.clan_name, c.clan_id 
+                FROM users u 
+                LEFT JOIN clans c ON u.clan_id = c.clan_id 
+                WHERE u.user_id = '$user_id'";
+$resultClanInfo = $con->query($sqlClanInfo);
+
+$weeklyPoints = 0;
+$totalClanPoints = 0;
+$resultClanMembers = null;
+
+if ($resultClanInfo && $resultClanInfo->num_rows > 0) {
+    $clanInfo = $resultClanInfo->fetch_assoc();
+    $clan_id = $clanInfo['clan_id'];
+    
+    if ($clan_id) {
+        $sqlWeeklyPoints = "SELECT COALESCE(SUM(h.points), 0) as weekly_points 
+                           FROM historic h 
+                           JOIN users u ON h.user_id = u.user_id 
+                           WHERE u.clan_id = '$clan_id' 
+                           AND h.date_match >= DATE_SUB(NOW(), INTERVAL 7 DAY)";
+        $resultWeeklyPoints = $con->query($sqlWeeklyPoints);
+        if ($resultWeeklyPoints && $resultWeeklyPoints->num_rows > 0) {
+            $weeklyData = $resultWeeklyPoints->fetch_assoc();
+            $weeklyPoints = $weeklyData['weekly_points'];
+        }
+        
+        $sqlClanMembers = "SELECT u.username, COALESCE(SUM(h.points), 0) as total_points 
+                          FROM users u 
+                          LEFT JOIN historic h ON u.user_id = h.user_id 
+                          WHERE u.clan_id = '$clan_id' 
+                          GROUP BY u.user_id, u.username 
+                          ORDER BY total_points DESC";
+        $resultClanMembers = $con->query($sqlClanMembers);
+        
+        $sqlTotalClanPoints = "SELECT COALESCE(SUM(h.points), 0) as total_points 
+                              FROM historic h 
+                              JOIN users u ON h.user_id = u.user_id 
+                              WHERE u.clan_id = '$clan_id'";
+        $resultTotalClanPoints = $con->query($sqlTotalClanPoints);
+        if ($resultTotalClanPoints && $resultTotalClanPoints->num_rows > 0) {
+            $totalData = $resultTotalClanPoints->fetch_assoc();
+            $totalClanPoints = $totalData['total_points'];
+        }
+    }
+    
+    $resultClanInfo->data_seek(0);
+}
+?>
 <!DOCTYPE html>
 <html lang="pt-BR">
 

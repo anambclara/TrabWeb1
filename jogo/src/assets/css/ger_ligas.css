@@ -8,7 +8,9 @@ body {
     justify-content: center;
     align-items: center;
     margin: 0;
-    background-color: #1e2327;
+    min-height: 100vh;
+    background: linear-gradient(to bottom, #ff99cc, #cc99ff) !important;
+    font-family: Arial, sans-serif;
     color: white; 
     text-align: center;
 }
@@ -18,7 +20,6 @@ main {
     justify-content: center;
     align-items: center;
     margin: 0;
-    background-color: #1e2327;
     color: white; 
     text-align: center;
 }
