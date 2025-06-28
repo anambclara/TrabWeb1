@@ -1,6 +1,11 @@
 <?php
 session_start();
 include("../config/connection.php");
+include("../config/functions.php");
+
+
+$user_data = check_login($con);
+$user_id = $user_data['user_id'];
 
 if ($con->connect_error) {
     die("Erro de conexão: " . $con->connect_error);
@@ -24,6 +29,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['matchResult'])) {
     }
 }
 
+$sqlHistoric = "SELECT points, date_match FROM historic WHERE user_id = '$user_id' ORDER BY date_match DESC";
+$resultHistoric = $con->query($sqlHistoric);
+
+
 $con->close();
 ?>
 
@@ -40,39 +49,42 @@ $con->close();
 </head>
 
 <body>
-    <header class="p-3 menu bg-dark text-white fixed-top">
-        <div class="container">
-            <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
-                <a href="/" class="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none">
-                    <svg class="bi me-2" width="40" height="32" role="img" aria-label="Bootstrap">
-                        <use xlink:href="#bootstrap" />
-                    </svg>
-                </a>
-
-                <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
-                    <li><a href="index.php" class="nav-link px-2 text-white">Home</a></li>
-                    <li><a href="hist.php" class="nav-link px-2 text-white">Histórico</a></li>
-                    <li><a href="ligas.php" class="nav-link px-2 text-white">Minha Liga</a></li>
-                    <li><a href="ger_ligas.php" class="nav-link px-2 text-white">Criar/Entrar Ligas</a></li>
-                </ul>
-            </div>
-        </div>
-    </header>
+    <?php 
+    
+    $hideLoginCheck = true; 
+    include("../components/header.php"); 
+    ?>
 
     <main class="d-flex justify-content-center align-items-center vh-100">
         <div class="card shadow-lg" style="max-width: 700px; width: 100%;">
             <div class="card-body">
-                <h1 class="text-center mb-4 text-danger">Histórico de Partidas</h1>
+                <h1 class="text-center mb-4" style="color: #ff66b2;">Histórico de Partidas</h1>
                 <p class="text-center">Aqui você pode visualizar o histórico de suas partidas.</p>
-                <table class="table table-striped">
-                    <thead>
-                        <tr>
-                            <th>Data</th>
-                            <th>Pontos</th>
-                        </tr>
-                    </thead>
-                 
-                </table>
+                
+                <?php if ($resultHistoric && $resultHistoric->num_rows > 0): ?>
+                    <table class="table table-striped">
+                        <thead class="table-light">
+                            <tr>
+                                <th>Data</th>
+                                <th>Pontos</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php while($row = $resultHistoric->fetch_assoc()): ?>
+                                <tr>
+                                    <td><?php echo date('d/m/Y H:i', strtotime($row['date_match'])); ?></td>
+                                    <td><strong><?php echo $row['points']; ?></strong></td>
+                                </tr>
+                            <?php endwhile; ?>
+                        </tbody>
+                    </table>
+                <?php else: ?>
+                    <div class="text-center">
+                        <p class="text-muted">Nenhuma partida registrada ainda.</p>
+                        <p>Jogue algumas partidas para ver seu histórico aqui!</p>
+                        <a href="jogo.php" class="btn" style="background-color: #ff66b2; color: white; border: none;">Jogar Agora</a>
+                    </div>
+                <?php endif; ?>
             </div>
         </div>
     </main>

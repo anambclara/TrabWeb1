@@ -1,8 +1,8 @@
 <?php 
 	$servername = "localhost";
-	$username = "root";
-	$password = "";
-	$conn = new mysqli($servername, $username, $password);
+	$db_username = "root";  
+	$db_password = "";      
+	$conn = new mysqli($servername, $db_username, $db_password);
 	
 	if ($conn->connect_error) {
 		die("Conexão falhou: " . $conn->connect_error);
@@ -16,7 +16,7 @@
 		if ($result->num_rows > 0) {
 			
 			$conn->select_db($databaseName);
-			//---------------------------------------------------
+			
 			$tableQueryclans = "SHOW TABLES LIKE 'clans'";
 			$tableResult = $conn->query($tableQueryclans);
 			if ($tableResult->num_rows == 0) {
@@ -30,7 +30,7 @@
 				";
 				$conn->query($createTableQueryclans);
 			}
-			//-------------------------------------------------
+			
 			$tableQueryusers = "SHOW TABLES LIKE 'users'";
 			$tableResult = $conn->query($tableQueryusers);
 			if ($tableResult->num_rows == 0) {
@@ -47,7 +47,7 @@
 				";
 				$conn->query($createTableQueryusers);
 			} 
-			//-----------------------------------------------
+			
 			$tableQueryhistoric = "SHOW TABLES LIKE 'historic'";
 			$tableResult = $conn->query($tableQueryhistoric);
 			if ($tableResult->num_rows == 0) {
@@ -63,13 +63,13 @@
 				";
 				$conn->query($createTableQueryhistoric) ;
 			} 
-			//-----------------------------------------------
+			
 		} else {
 			$createDatabaseQuery = "CREATE DATABASE $databaseName";
 			if ($conn->query($createDatabaseQuery) === TRUE) {
 				
 				$conn->select_db($databaseName);
-				//-------------------------------------
+				
 				$createTableQueryclans = "
 					CREATE TABLE clans (
 						clan_id INT NOT NULL AUTO_INCREMENT,
@@ -79,7 +79,7 @@
 					);
 				";
 				$conn->query($createTableQueryclans);
-				//-------------------------------------------------
+				
 				$createTableQueryusers = "
 					CREATE TABLE users(
 						user_id INT NOT NULL AUTO_INCREMENT,
@@ -92,7 +92,7 @@
                     );
 				";
 				$conn->query($createTableQueryusers);
-				//---------------------------------------------
+				
 				$createTableQueryhistoric = "
 					CREATE TABLE historic (
 						match_id SERIAL,
@@ -104,7 +104,7 @@
 					);
 				";
 				$conn->query($createTableQueryhistoric);
-				//--------------------------------------------
+				
 			} 
 		}
 	}
@@ -115,37 +115,49 @@
 	include("../config/connection.php");
 	include("../config/functions.php");
 
+	$username = "";
+	$password = "";
+	$login_error = "";
 	
 	if($_SERVER['REQUEST_METHOD'] == "POST")
 	{
-
 		$username = $_POST['username'];
 		$password = $_POST['password'];
+		$login_error = "";
 
 		if(!empty($username) && !empty($password))
 		{
+			$query = "SELECT * FROM users WHERE username = ? LIMIT 1";
+			$stmt = mysqli_prepare($con, $query);
+			mysqli_stmt_bind_param($stmt, "s", $username);
+			mysqli_stmt_execute($stmt);
+			$result = mysqli_stmt_get_result($stmt);
 
-			$query = "select * from users where username = '$username' limit 1";
-			$result = mysqli_query($con, $query);
-
-			if($result)
+			if($result && mysqli_num_rows($result) > 0)
 			{
-				if($result && mysqli_num_rows($result) > 0)
+				$user_data = mysqli_fetch_assoc($result);
+				
+				if(password_verify($password, $user_data['password']) || $user_data['password'] === $password)
 				{
-
-					$user_data = mysqli_fetch_assoc($result);
-					
-					if($user_data['password'] === $password)
-					{
-
-						$_SESSION['user_id'] = $user_data['user_id'];
-						header("Location: index.php");
-						die;
+					if($user_data['password'] === $password) {
+						$hashed_password = password_hash($password, PASSWORD_DEFAULT);
+						$update_query = "UPDATE users SET password = ? WHERE user_id = ?";
+						$update_stmt = mysqli_prepare($con, $update_query);
+						mysqli_stmt_bind_param($update_stmt, "si", $hashed_password, $user_data['user_id']);
+						mysqli_stmt_execute($update_stmt);
 					}
+
+					$_SESSION['user_id'] = $user_data['user_id'];
+					header("Location: index.php");
+					die;
+				} else {
+					$login_error = "Senha incorreta.";
 				}
+			} else {
+				$login_error = "Usuário não encontrado.";
 			}
-			
-			
+		} else {
+			$login_error = "Por favor, preencha todos os campos.";
 		}
 	}
 
@@ -159,16 +171,25 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="../assets/css/login.css"> <!-- Seu CSS personalizado -->
+    <link rel="stylesheet" href="../assets/css/login.css"> 
     <title>Login</title>
 </head>
 <body>
     <div class="container">
         <h1>Bem-vindo!</h1>
+        
+        <?php if(isset($_GET['success']) && $_GET['success'] == 1): ?>
+            <div class="alert alert-success">Cadastro realizado com sucesso! Faça login para continuar.</div>
+        <?php endif; ?>
+        
+        <?php if(isset($login_error) && !empty($login_error)): ?>
+            <div class="alert alert-danger"><?= htmlspecialchars($login_error) ?></div>
+        <?php endif; ?>
+        
         <form action="login.php" method="POST">
             <div class="mb-3">
                 <label for="username" class="form-label">Usuário</label>
-                <input type="text" class="form-control" id="username" name="username" required>
+                <input type="text" class="form-control" id="username" name="username" value="<?= isset($username) ? htmlspecialchars($username) : '' ?>" required>
             </div>
             <div class="mb-3">
                 <label for="password" class="form-label">Senha</label>

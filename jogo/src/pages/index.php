@@ -19,28 +19,11 @@ $user_data = check_login($con);
     <link rel="stylesheet" href="..\assets\css\index.css">
 </head>
 <body>
-    <header class="p-3 menu">
-        <div class="container">
-            <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
-                <a href="/" class="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none">
-                    <svg class="bi me-2" width="40" height="32" role="img" aria-label="Bootstrap">
-                        <use xlink:href="#bootstrap" />
-                    </svg>
-                </a>
-
-                <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
-                    <li><a href="index.php" class="nav-link px-2 text-white">Home</a></li>
-                    <li><a href="hist.php" class="nav-link px-2 text-white">Histórico</a></li>
-                    <li><a href="ligas.php" class="nav-link px-2 text-white">Minha liga</a></li>
-                    <li><a href="ger_ligas.php" class="nav-link px-2 text-white">Criar/Entrar em ligas</a></li>
-                </ul>
-                <div class="text-end">
-                    <a href="logout.php"><button type="button"
-                            class="btn btn-warning">Logout</button></a>
-                </div>
-            </div>
-        </div>
-    </header>
+    <?php 
+    
+    $hideLoginCheck = true; 
+    include("../components/header.php"); 
+    ?>
     <main>
         <div class="page">
             <?php 
@@ -52,8 +35,7 @@ $user_data = check_login($con);
             }
             ?>
             <div class="btn" id="divButtonStart">
-                <a href="jogo.php"><button type="button" class="btn btn-warning btn-lg" style="font-size: 50px;"
-                    id="buttonStart">JOGAR</button></a>
+                <a href="jogo.php"><button type="button" class="btn btn-lg" id="buttonStart">JOGAR</button></a>
             </div>
         </div>
     </main>

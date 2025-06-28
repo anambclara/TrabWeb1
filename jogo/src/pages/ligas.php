@@ -54,6 +54,7 @@ if ($resultClanInfo && $resultClanInfo->num_rows > 0) {
     $resultClanInfo->data_seek(0);
 }
 ?>
+
 <!DOCTYPE html>
 <html lang="pt-BR">
 
@@ -67,19 +68,11 @@ if ($resultClanInfo && $resultClanInfo->num_rows > 0) {
 </head>
 
 <body>
-    <header class="p-3 bg-dark text-white">
-        <div class="container">
-            <div class="d-flex flex-wrap align-items-center justify-content-between">
-                <ul class="nav col-12 col-lg-auto mb-2 justify-content-center mb-md-0">
-                    <li><a href="index.php" class="nav-link px-2 text-white">Home</a></li>
-                    <li><a href="hist.php" class="nav-link px-2 text-white">Histórico</a></li>
-                    <li><a href="ligas.php" class="nav-link px-2 text-white">Minha Liga</a></li>
-                    <li><a href="ger_ligas.php" class="nav-link px-2 text-white">Criar/Entrar Ligas</a></li>
-                </ul>
-                <a href="logout.php" class="btn btn-warning">Logout</a>
-            </div>
-        </div>
-    </header>
+    <?php 
+    
+    $hideLoginCheck = true; 
+    include("../components/header.php"); 
+    ?>
 
     <main class="container my-5">
         <div class="row g-4">
@@ -120,7 +113,7 @@ if ($resultClanInfo && $resultClanInfo->num_rows > 0) {
                             </thead>
                             <tbody>
                                 <?php
-                                if ($resultClanMembers->num_rows > 0) {
+                                if ($resultClanMembers && $resultClanMembers->num_rows > 0) {
                                     while ($rowClanMembers = $resultClanMembers->fetch_assoc()) {
                                         echo "<tr><td>{$rowClanMembers['username']}</td><td>{$rowClanMembers['total_points']}</td></tr>";
                                     }
@@ -143,14 +136,24 @@ if ($resultClanInfo && $resultClanInfo->num_rows > 0) {
                             <thead class="table-light">
                                 <tr>
                                     <th>Nome</th>
+                                    <th>Pontuação Total</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <?php
-                                $sqlOtherGuilds = "SELECT clan_name FROM clans";
+                                $sqlOtherGuilds = "SELECT c.clan_name, COALESCE(SUM(h.points), 0) as total_points 
+                                                  FROM clans c 
+                                                  LEFT JOIN users u ON c.clan_id = u.clan_id 
+                                                  LEFT JOIN historic h ON u.user_id = h.user_id 
+                                                  GROUP BY c.clan_id, c.clan_name 
+                                                  ORDER BY total_points DESC";
                                 $resultOtherGuilds = $con->query($sqlOtherGuilds);
-                                while ($rowOtherGuilds = $resultOtherGuilds->fetch_assoc()) {
-                                    echo "<tr><td>{$rowOtherGuilds['clan_name']}</td></tr>";
+                                if ($resultOtherGuilds && $resultOtherGuilds->num_rows > 0) {
+                                    while ($rowOtherGuilds = $resultOtherGuilds->fetch_assoc()) {
+                                        echo "<tr><td>{$rowOtherGuilds['clan_name']}</td><td>{$rowOtherGuilds['total_points']}</td></tr>";
+                                    }
+                                } else {
+                                    echo "<tr><td colspan='2'>Nenhuma liga encontrada.</td></tr>";
                                 }
                                 ?>
                             </tbody>

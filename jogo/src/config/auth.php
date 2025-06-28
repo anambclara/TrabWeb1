@@ -11,16 +11,24 @@ function verify_txt($txt){
 
   if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
-    //verifica username
+
     if(empty($_POST["username"])){
         $err_username = "Nome de usuário é obrigatório.";
         $err = true;
       }
       else{
         $username = verify_txt($_POST["username"]);
+        if(strlen($username) < 3){
+          $err_username = "Nome de usuário deve ter pelo menos 3 caracteres.";
+          $err = true;
+        }
+        elseif(!preg_match("/^[a-zA-Z0-9_]+$/", $username)){
+          $err_username = "Nome de usuário deve conter apenas letras, números e underscore.";
+          $err = true;
+        }
       }
 
-      //verifica email
+      
       if(empty($_POST["email"])){
         $err_email = "Email é obrigatório.";
         $err = true;
@@ -33,7 +41,7 @@ function verify_txt($txt){
         }
       }
 
-      //verifica c_email
+     
       if(empty($_POST["c_email"])){
         $err_c_email = "Confirmação de Email é obrigatória.";
         $err = true;
@@ -46,16 +54,20 @@ function verify_txt($txt){
         }
       }
 
-      //verifica password
+   
       if(empty($_POST["password"])){
         $err_password = "Senha é obrigatória.";
         $err = true;
       }
       else{
         $password = verify_txt($_POST["password"]);
+        if(strlen($password) < 6){
+          $err_password = "Senha deve ter pelo menos 6 caracteres.";
+          $err = true;
+        }
       }
 
-      //verifica c_password
+     
       if(empty($_POST["c_password"])){
         $err_c_password = "Confirmação de senha é obrigatória.";
         $err = true;

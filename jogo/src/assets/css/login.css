@@ -1,5 +1,5 @@
 body {
-    background: linear-gradient(to bottom, #ff99cc, #cc99ff) !important; /* Rosa e lilás */
+    background: linear-gradient(to bottom, #ff99cc, #cc99ff) !important; 
     display: flex;
     justify-content: center;
     align-items: center;
@@ -135,7 +135,7 @@ a {
 }
 
 h1 {
-    color: #ff66b2; /* Lilás */
+    color: #ff66b2; 
     margin-bottom: 1rem;
 }
 

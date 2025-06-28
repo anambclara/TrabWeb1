@@ -1,85 +1,22 @@
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
 body {
-    background: linear-gradient(to bottom, #ff99cc, #cc99ff) !important;
+    min-height: 100vh;
+    background: linear-gradient(to bottom, #ff99cc, #cc99ff);
     font-family: Arial, sans-serif;
 }
 
-/* Estilos para o jogo de digitação */
-.containerJogo {
-    display: none; /* Escondido por padrão */
-}
-
-.quote-display {
-    background-color: #f8f9fa;
-    border: 2px solid #dee2e6;
-    border-radius: 8px;
-    padding: 20px;
-    margin-bottom: 15px;
-    font-size: 18px;
-    line-height: 1.6;
-    text-align: left;
-    min-height: 100px;
-}
-
-.quote-display span {
-    position: relative;
-}
-
-.quote-display span.correct {
-    background-color: #28a745;
+.btn-rosa {
+    background-color: #ff66b2;
     color: white;
+    border: none;
 }
 
-.quote-display span.incorrect {
-    background-color: #dc3545;
+.btn-rosa:hover, .btn-rosa:focus {
+    background-color: #cc33ff;
     color: white;
-}
-
-.quote-input {
-    font-size: 16px;
-    line-height: 1.6;
-    border: 2px solid #ff66b2;
-    border-radius: 8px;
-}
-
-.quote-input:focus {
-    border-color: #ff66b2;
-    box-shadow: 0 0 0 0.2rem rgba(255, 102, 178, 0.25);
-}
-
-.timer {
-    font-size: 48px;
-    font-weight: bold;
-    color: #ff66b2;
-    text-align: center;
-}
-
-.result {
-    display: none; /* Escondido por padrão */
-    background-color: #f8f9fa;
-    border-radius: 8px;
-    padding: 20px;
-}
-
-#timer_structure {
-    display: none; /* Escondido por padrão */
-}
-
-/* Estilos para os botões rosa do jogo */
-#button, #ButtonRestart {
-    background-color: #ff66b2 !important;
-    color: white !important;
-    border: none !important;
-    transition: all 0.3s ease;
-    font-weight: bold;
-}
-
-#button:hover, #ButtonRestart:hover {
-    background-color: #e55aa0 !important;
-    color: white !important;
-    transform: scale(1.05);
-    box-shadow: 0 4px 8px rgba(255, 102, 178, 0.3);
-}
-
-#button:active, #ButtonRestart:active {
-    transform: scale(0.98);
 }
